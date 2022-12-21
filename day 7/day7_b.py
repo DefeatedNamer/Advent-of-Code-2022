@@ -4,7 +4,7 @@ lines = file.read().split('\n')
 dirs = []
 dir_sizes = {}
 
-for line in lines:  
+for line in lines:
     if not line:
         continue
 
@@ -14,14 +14,14 @@ for line in lines:
         case ["$", "cd", ".."]:
             dirs.pop(-1)
 
-        case ["$", "cd", *dir]:
-            dir_name = dir[0]
+        case ["$", "cd", dir]:
+            dir_name = dir
             count = 0
 
             while dir_name in dir_sizes:
                 count += 1
-                dir_name = dir[0] + str(count)
-            
+                dir_name = dir + str(count)
+
             dirs.append(dir_name)
             dir_sizes[dir_name] = 0
 
@@ -31,9 +31,9 @@ for line in lines:
         case ["dir", _]:
             continue
 
-        case [*size]:
+        case [*parts]:
             for dir in dirs:
-                dir_sizes[dir] += int(size[0])
+                dir_sizes[dir] += int(parts[0])
 
 total_space = 70000000
 needed_space = 30000000
@@ -44,8 +44,8 @@ need_to_free = needed_space - free_space
 
 answer = total_space
 
-for dir, size in dir_sizes.items():
-    if size >= need_to_free:
-        answer = min(answer, size)
+for dir, parts in dir_sizes.items():
+    if parts >= need_to_free:
+        answer = min(answer, parts)
 
 print(answer)

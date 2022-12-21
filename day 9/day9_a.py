@@ -62,20 +62,20 @@ for line in lines:
         continue
 
     match line.split(' '):
-        case ['R', *steps]:
-            steps = int(steps[0])
+        case ['R', steps]:
+            steps = int(steps)
             move(+1, 0, steps)
 
-        case ['D', *steps]:
-            steps = int(steps[0])
+        case ['D', steps]:
+            steps = int(steps)
             move(0, -1, steps)
 
-        case ['L', *steps]:
-            steps = int(steps[0])
+        case ['L', steps]:
+            steps = int(steps)
             move(-1, 0, steps)
 
-        case ['U', *steps]:
-            steps = int(steps[0])
+        case ['U', steps]:
+            steps = int(steps)
             move(0, +1, steps)
 
 print(len(positions))

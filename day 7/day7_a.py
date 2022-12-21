@@ -4,7 +4,7 @@ lines = file.read().split('\n')
 dirs = None
 dir_sizes = {}
 
-for line in lines:  
+for line in lines:
     if not line:
         continue
 
@@ -17,14 +17,13 @@ for line in lines:
         case ["$", "cd", ".."]:
             dirs.pop(-1)
 
-        case ["$", "cd", *dir]:
-            dir = dir[0]
+        case ["$", "cd", dir]:
             count = 0
 
             while dir in dir_sizes:
                 count += 1
                 dir = dir[0] + str(count)
-            
+
             dirs.append(dir)
             dir_sizes[dir] = 0
 
@@ -34,14 +33,14 @@ for line in lines:
         case ["dir", _]:
             continue
 
-        case [*size]:
+        case [*parts]:
             for dir in dirs:
-                dir_sizes[dir] += int(size[0])
+                dir_sizes[dir] += int(parts[0])
 
 cumulative = 0
 
-for dir, size in dir_sizes.items():
-    if size <= 100000:
-        cumulative += size
+for dir, parts in dir_sizes.items():
+    if parts <= 100000:
+        cumulative += parts
 
 print(cumulative)
